@@ -1,0 +1,132 @@
+<style>
+    html * {
+      font-family: 'Avenir';
+      font-weight: 400;
+    }
+  </style>
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>yolp</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+      <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    </head>
+    <body>
+      <nav class="navbar is-spaced" role="navigation" aria-label="main navigation">
+          <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+              <img src="https://i.imgur.com/19NuyTq.png">
+            </a>
+  
+            {% if user.is_authenticated %}
+            <div class="navbar-menu">
+              <div class="navbar-start">
+                <div class="navbar-item">
+                  <a class="navbar-item" href="/">
+                    <strong>
+                      Home
+                    </strong>
+                  </a>
+                </div>
+  
+                <div class="navbar-item">
+                  <a class="navbar-item" href="/">
+                    <strong>
+                      Profile
+                    </strong>
+                  </a>
+                </div>
+              </div>
+              
+              <!-- TODO: make this appear at the end -->
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class=buttons>
+                    <a class="button is-light" href="/logout_view/"><strong>Logout</strong></a>
+                  </div>
+                </div>
+                
+                
+                <!-- <div class="navbar-item">
+                  <div class="buttons">
+                    <a class="button is-primary" id="newpost_button">
+                      <strong>new post</strong>
+                    </a>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+            
+            {% endif %}
+        
+            <!-- <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a> -->
+          </div>
+        
+          <!-- <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons">
+                  <a class="button is-primary">
+                    <strong>sign up</strong>
+                  </a>
+                  <a class="button is-light">
+                    log in
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </nav>
+  
+        <!-- new post modal -->
+        <div class="modal" id="newpost_modal">
+          <div class="modal-background"></div>
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title">new post</p>
+              <button class="delete" aria-label="close" id="newpost_close_modal"></button>
+            </header>
+            <section class="modal-card-body">
+              <form method="POST" action="/newpost/">
+                {% csrf_token %}
+                  <div class="field">
+                      <label class="label">post content</label>
+                      <div class="control">
+                        <input name="body" class="textarea" placeholder="e.g. i like drinking maple syrup!">
+                      </div>
+                  </div>
+                  <div class="buttons has-addons is-centered">
+                    <input type="submit" value="post" class="button is-primary"></input>
+                  </div>
+              </form>
+            </section>
+          </div>
+        </div>
+  
+        {% block content %}
+  
+        {% endblock %}
+    </body>
+  
+    <script>
+      // new post modal
+      var modal = document.getElementById("newpost_modal")
+      var button = document.getElementById("newpost_button")
+      var close_modal = document.getElementById("newpost_close_modal")
+    
+      button.onclick = function() {
+        modal.style.display="flex";
+      }
+    
+      close_modal.onclick = function() {
+        modal.style.display="none";
+      }
+    </script>
+  
+  </html>
