@@ -20,3 +20,5 @@ class RestaurantAdmin(models.Model):
     price = models.CharField(max_length=4, choices=PRICE_CHOICES, default='$')
     description = models.TextField()
     time = models.DateTimeField(auto_now=True, null=True)
+    is_student = False
+    is_restaurant = True

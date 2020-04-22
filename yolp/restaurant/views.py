@@ -11,3 +11,14 @@ def splash(request):
 def logout_view(request):
     logout(request)
     return redirect("/")
+
+# restaurant pages
+
+def restaurant(request):
+    return render(request, "restaurant.html", {})
+
+def view_restaurants(request):
+    return render(request, "view_restaurants.html", {})
+
+def browse(request):
+    return render(request, "browse.html", {})

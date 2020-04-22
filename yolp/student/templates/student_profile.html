@@ -2,54 +2,53 @@
 
 {% block content %}
 
-<section class="hero is-light">
+<section class="hero is-warning">
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Welcome back, {{ student.name }}!
+          Carol Li
         </h1>
         <h2 class="subtitle">
-          Here are your most recent Yolp updates.
+          @caroljli 
         </h2>
+        <!-- TODO: potential edit feature -->
+        <!-- <button class="button is-light" style="font-family: Avenir"><strong>Follow</strong></button> -->
+        <!-- <button class="button is-warning is-light" style="font-family: Avenir"><strong>Edit</strong></button> -->
       </div>
     </div>
 </section>
 
 <div class="columns">
     <div class="column is-one-fifth"></div>
-    <div class="column">
+    <div class="column is-one-quarter">
         <section class="section">
             <div class="container">
-                <h2 class="title is-4">Activity from Restaurants You Follow</h2>
-                <h3 class="subtitle is-5">Keep updated on reviews.</h3>
+                <h2 class="title is-4">About Carol</h2>
+                <h3 class="subtitle is-5">University of Pennsylvania</h3>
+                <figure class="image">
+                    <img src="https://caroljli.github.io/assets/images/cartoon_carol.png">
+                </figure>
+                <br>
 
-                <div class="card">
-                    <div class="card-image">
-                        <figure class="image is-4by3">
-                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-                        </figure>
-                    </div>
-                    <div class="card-content">
-                        <div class="media">
-                            <div class="media-left">
-                                <figure class="image is-48x48">
-                                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-                                </figure>
-                            </div>
-                            <div class="media-content">
-                                <p class="title is-4">John Smith</p>
-                                <p class="subtitle is-6">@johnsmith</p>
-                            </div>
-                        </div>
-                  
-                        <div class="content">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                            <a href="#">#css</a> <a href="#">#responsive</a>
-                            <br>
-                            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                        </div>
-                    </div>
+                <div class="notification is-light">
+                   i like cats
+                </div>
+
+                <h2 class="title is-5">Restaurants Carol Follows</h2>
+
+                <div class="notification is-warning">
+                    <strong>Distrito</strong>
+                    <p>University of Pennsylvania // $$</p>
+                    <br>
+                    <button class="button is-small is-light is-warning is-fullwidth">View</button>
+                    
+                </div>
+
+                <div class="notification is-warning">
+                    <strong>Pelicana</strong>
+                    <p>University of Pennsylvania // $$</p>
+                    <br>
+                    <button class="button is-small is-light is-warning is-fullwidth">View</button>
                 </div>
 
             </div>
@@ -58,8 +57,11 @@
     <div class="column">
         <section class="section">
             <div class="container">
-                <h2 class="title is-4">Suggested Restaurants</h2>
-                <h3 class="subtitle is-5">Based on your recent activity.</h3>
+                <h2 class="title is-4">Recent Activity</h2>
+                <h3 class="subtitle is-5">Read Carol's recent reviews.</h3>
+
+                <button class="button is-fullwidth is-warning" style="font-family: Avenir"><strong>Write Review</strong></button>
+                <br>
 
                 <div class="card">
                     <div class="card-image">

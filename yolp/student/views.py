@@ -39,7 +39,12 @@ def student_register_view(request):
 # student pages
 
 def student_home(request):
-    return render(request, "student_home.html", {})
+    user = request.user
+    student = Student.objects.filter(user=user)
+    return render(request, "student_home.html", {"user": user, "student": student})
 
 def student_register_complete(request):
     return render(request, "student_register_complete.html", {})
+
+def student_profile(request):
+    return render(request, "student_profile.html", {})

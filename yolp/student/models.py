@@ -10,3 +10,5 @@ class Student(models.Model):
     school = models.CharField(max_length=200)
     bio = models.TextField()
     time = models.DateTimeField(auto_now=True, null=True)
+    is_student = True
+    is_restaurant = False
