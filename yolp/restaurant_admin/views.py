@@ -46,3 +46,6 @@ def restaurant_home(request):
 
 def restaurant_register_complete(request):
     return render(request, "restaurant_register_complete.html", {})
+
+def admin_profile(request):
+    return render(request, "admin_profile.html", {})

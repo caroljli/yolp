@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="hero is-warning">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Howard Yuan
+        </h1>
+        <h2 class="subtitle">
+          Restaurant Admin
+        </h2>
+        <!-- TODO: potential edit feature -->
+        <!-- <button class="button is-light" style="font-family: Avenir"><strong>Follow</strong></button> -->
+        <button class="button is-warning is-light" style="font-family: Avenir"><strong>Edit Profile</strong></button>
+      </div>
+    </div>
+</section>
+
+<div class="columns">
+    <div class="column is-one-fifth"></div>
+    <div class="column is-one-quarter">
+        <section class="section">
+            <div class="container">
+                <h2 class="title is-4">About Howard</h2>
+                <h3 class="subtitle is-5">@howo</h3>
+                <figure class="image">
+                    <img src="https://i.pinimg.com/originals/f0/5e/ba/f05eba7018d18db1655caf73a980f62d.jpg">
+                </figure>
+                <br>
+
+                <div class="notification is-light">
+                   I like sleeping.
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <div class="column">
+        <section class="section">
+            <div class="container">
+                <h2 class="title is-4">Restaurants Howard Manages</h2>
+                <h3 class="subtitle is-5">View his Yolp content.</h3>
+
+                <div class="notification is-warning">
+                    <strong>Distrito</strong>
+                    <p>University of Pennsylvania // $$</p>
+                    <br>
+                    <button class="button is-small is-light is-warning is-fullwidth">View</button>
+                    
+                </div>
+
+                <div class="notification is-warning">
+                    <strong>Pelicana</strong>
+                    <p>University of Pennsylvania // $$</p>
+                    <br>
+                    <button class="button is-small is-light is-warning is-fullwidth">View</button>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <div class="column is-one-fifth"></div>
+</div>
+
+{% endblock %}

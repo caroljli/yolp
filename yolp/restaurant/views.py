@@ -22,3 +22,6 @@ def view_restaurants(request):
 
 def browse(request):
     return render(request, "browse.html", {})
+
+def category(request):
+    return render(request, "category.html", {})
