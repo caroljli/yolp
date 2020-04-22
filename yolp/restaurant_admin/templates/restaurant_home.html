@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="hero is-light">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Welcome back, {{ student.name }}!
+        </h1>
+        <h2 class="subtitle">
+          View and manage your restaurant activity.
+        </h2>
+        <a class="button is-dark"><strong>Edit Profile</strong></a>
+      </div>
+    </div>
+</section>
+
+<div class="columns">
+    <div class="column is-one-fifth"></div>
+    <div class="column">
+        <section class="section">
+            <div class="container">
+                <h2 class="title is-4">Restaurant Activity</h2>
+                <h3 class="subtitle is-5">Recent reviews to your restaurants.</h3>
+
+                <div class="card">
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-left">
+                                <figure class="image is-48x48">
+                                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <p class="title is-4">John Smith</p>
+                                <p class="subtitle is-6">@johnsmith</p>
+                            </div>
+                        </div>
+                  
+                        <div class="content">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
+                            <a href="#">#css</a> <a href="#">#responsive</a>
+                            <br>
+                            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <div class="column">
+        <section class="section">
+            <div class="container">
+                <h2 class="title is-4">Actions</h2>
+                <h3 class="subtitle is-5">Manage your restaurant pages.</h3>
+
+                <div class="notification is-warning">
+                    <p class="title is-5">Distrito</p>
+                    <p class="subtitle is-5">23 reviews</p>
+                    <a class="button is-small is-light is-warning href="/browse">View</a>
+                    <a class="button is-small is-dark href="/browse">Edit</a>
+                 </div>
+
+                 <div class="notification is-warning">
+                    <p class="title is-5">Pelicana</p>
+                    <p class="subtitle is-5">12 reviews</p>
+                    <a class="button is-small is-light is-warning href="/browse">View</a>
+                    <a class="button is-small is-dark href="/browse">Edit</a>
+                 </div>
+
+                 <a class="button is-fullwidth is-light"><strong>Add New Restaurant</strong></a>
+
+            </div>
+        </section>
+    </div>
+    <div class="column is-one-fifth"></div>
+</div>
+
+{% endblock %}
