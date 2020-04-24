@@ -15,8 +15,12 @@ def student_login_view(request):
     password = request.POST["password"]
     user = authenticate(username=username, password=password)
     if user is not None:
-        auth_login(request, user)
-        return redirect("/student_home")
+        student = Student.objects.filter(user=user)
+        if student.is_student:
+            auth_login(request, user)
+            return redirect("/student_home")
+        else:
+            return redirect("/student_login")
     else:
         return redirect("/student_login")
 
