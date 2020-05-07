@@ -6,7 +6,7 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Howard Yuan
+          {{ rest_admin.name }}
         </h1>
         <h2 class="subtitle">
           Restaurant Admin
@@ -23,15 +23,15 @@
     <div class="column is-one-quarter">
         <section class="section">
             <div class="container">
-                <h2 class="title is-4">About Howard</h2>
-                <h3 class="subtitle is-5">@howo</h3>
+                <h2 class="title is-4">About {{ rest_admin.name }}</h2>
+                <h3 class="subtitle is-5">@{{ user.username }}</h3>
                 <figure class="image">
                     <img src="https://i.pinimg.com/originals/f0/5e/ba/f05eba7018d18db1655caf73a980f62d.jpg">
                 </figure>
                 <br>
 
                 <div class="notification is-light">
-                   I like sleeping.
+                   {{ rest_admin.bio }}
                 </div>
 
             </div>

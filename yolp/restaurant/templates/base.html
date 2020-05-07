@@ -21,36 +21,89 @@
             </a>
   
             {% if user.is_authenticated %}
-            <div class="navbar-menu">
-              <div class="navbar-start">
-                <div class="navbar-item">
-                  <a class="navbar-item" href="/student_home">
-                    <strong>
-                      Home
-                    </strong>
-                  </a>
-                </div>
-  
-                <div class="navbar-item">
-                  <a class="navbar-item" href="/student_profile">
-                    <strong>
-                      Profile
-                    </strong>
-                  </a>
-                </div>
+              {% if user.student %}
+                <div class="navbar-menu">
+                  <div class="navbar-start">
+                    <div class="navbar-item">
+                      <a class="navbar-item" href="/student_home">
+                        <strong>
+                          Student Home
+                        </strong>
+                      </a>
+                    </div>
+      
+                    <div class="navbar-item">
+                      <a class="navbar-item" href="/student_profile">
+                        <strong>
+                          Profile
+                        </strong>
+                      </a>
+                    </div>
 
-                <div class="navbar-item">
-                  <a class="navbar-item" href="/view_restaurants">
-                    <strong>
-                      Browse
-                    </strong>
-                  </a>
-                </div>
+                    <div class="navbar-item">
+                      <a class="navbar-item" href="/view_restaurants">
+                        <strong>
+                          Browse
+                        </strong>
+                      </a>
+                    </div>
 
-              </div>
-              
-              <!-- TODO: make this appear at the end -->
-              <div class="navbar-end">
+                    <div class="navbar-item">
+                      <div class="navbar-item">
+                        <div class="buttons">
+                          <a class="button is-warning" id="newpost_button">
+                            <strong>New Review</strong>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  
+              {% else %}
+                <div class="navbar-menu">
+                  <div class="navbar-start">
+                    <div class="navbar-item">
+                      <a class="navbar-item" href="/restaurant_home">
+                        <strong>
+                          Restaurant Home
+                        </strong>
+                      </a>
+                    </div>
+      
+                    <div class="navbar-item">
+                      <a class="navbar-item" href="/admin_profile">
+                        <strong>
+                          Profile
+                        </strong>
+                      </a>
+                    </div>
+
+                    <div class="navbar-item">
+                      <a class="navbar-item" href="/view_restaurants">
+                        <strong>
+                          Browse
+                        </strong>
+                      </a>
+                    </div>
+
+                    <div class="navbar-item">
+                      <div class="navbar-item">
+                        <div class="buttons">
+                          <a class="button is-warning" href="/new_restaurant">
+                            <strong>New Restaurant</strong>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  
+                 
+              {% endif %}
+
+               <!-- TODO: make this appear at the end -->
+               <div class="navbar-end">
                 <div class="navbar-item">
                   <div class=buttons>
                     <a class="button is-light" href="/logout_view/"><strong>Logout</strong></a>
@@ -68,7 +121,7 @@
               </div>
             </div>
             
-            {% endif %}
+          {% endif %}
         
             <!-- <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
               <span aria-hidden="true"></span>
@@ -98,22 +151,37 @@
           <div class="modal-background"></div>
           <div class="modal-card">
             <header class="modal-card-head">
-              <p class="modal-card-title">new post</p>
+              <p class="modal-card-title">New Review</p>
               <button class="delete" aria-label="close" id="newpost_close_modal"></button>
             </header>
             <section class="modal-card-body">
-              <form method="POST" action="/newpost/">
+              <form method="POST" action="/new_review/">
                 {% csrf_token %}
                   <div class="field">
-                      <label class="label">post content</label>
+                    <label class="label">Title<a style="color: red">*</a></label>
+                    <div class="control">
+                      <input name="review_title" class="input" placeholder="eg. Distrito Overall">
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label class="label">Photo</label>
+                    <div class="control">
+                      <input name="review_photo" class="input" placeholder="eg. https://google.com">
+                    </div>
+                  </div>
+
+                  <div class="field">
+                      <label class="label">Content<a style="color: red">*</a></label>
                       <div class="control">
-                        <input name="body" class="textarea" placeholder="e.g. i like drinking maple syrup!">
+                        <input name="review_body" class="textarea" placeholder="e.g. I think Distrito is a really cool non-profit!">
                       </div>
                   </div>
                   <div class="buttons has-addons is-centered">
-                    <input type="submit" value="post" class="button is-primary"></input>
+                    <input type="submit" value="Post Review" class="button is-warning" style="font-family: Avenir; font-weight: 600"></input>
                   </div>
               </form>
+              <p><a style="color: red">*</a> Required Fields</p>
             </section>
           </div>
         </div>

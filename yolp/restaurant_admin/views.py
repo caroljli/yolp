@@ -15,8 +15,12 @@ def restaurant_login_view(request):
     password = request.POST["password"]
     user = authenticate(username=username, password=password)
     if user is not None:
-        auth_login(request, user)
-        return redirect("/restaurant_home")
+        rest_admin = RestaurantAdmin.objects.get(user=user)
+        if rest_admin.is_restaurant is True:
+            auth_login(request, user)
+            return redirect("/restaurant_home")
+        else:
+            return redirect("/restaurant_login")
     else:
         return redirect("/restaurant_login")
 
@@ -24,28 +28,28 @@ def restaurant_register(request):
     return render(request, "restaurant_register.html", {})
 
 def restaurant_register_view(request):
-    name = request.POST["name"]
-    username = request.POST["username"]
-    password = request.POST["password"]
-    email = request.POST["email"]
-    school = request.POST["school"]
-    description = request.POST["description"]
-    price = request.POST["price"]
-    address = request.POST["address"]
-    restaurant_name = request.POST["restaurant_name"]
+    name = request.POST.get("name")
+    username = request.POST.get("username")
+    password = request.POST.get("password")
+    email = request.POST.get("email")
+    bio = request.POST.get("bio")
     user = User.objects.create(username=username, password=password, email=email)
     user.set_password(password)
     user.save()
-    RestaurantAdmin.objects.create(user=user, name=name, school=school, bio=bio)
+    RestaurantAdmin.objects.create(user=user, name=name, bio=bio)
     return redirect('/restaurant_register_complete')
 
 # restaurant pages
 
 def restaurant_home(request):
-    return render(request, "restaurant_home.html", {})
+    user = request.user
+    rest_admin = RestaurantAdmin.objects.get(user=request.user)
+    return render(request, "restaurant_home.html", {"user": user, "rest_admin": rest_admin})
 
 def restaurant_register_complete(request):
     return render(request, "restaurant_register_complete.html", {})
 
 def admin_profile(request):
-    return render(request, "admin_profile.html", {})
+    user = request.user
+    rest_admin = RestaurantAdmin.objects.get(user=user)
+    return render(request, "admin_profile.html", {"user": user, "rest_admin": rest_admin})

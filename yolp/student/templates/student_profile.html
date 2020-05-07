@@ -6,10 +6,10 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Carol Li
+          {{ student.name }}
         </h1>
         <h2 class="subtitle">
-          @caroljli 
+          @{{ user.username }}
         </h2>
         <!-- TODO: potential edit feature -->
         <!-- <button class="button is-light" style="font-family: Avenir"><strong>Follow</strong></button> -->
@@ -23,18 +23,18 @@
     <div class="column is-one-quarter">
         <section class="section">
             <div class="container">
-                <h2 class="title is-4">About Carol</h2>
-                <h3 class="subtitle is-5">University of Pennsylvania</h3>
+                <h2 class="title is-4">About {{ student.name }}</h2>
+                <h3 class="subtitle is-5">{{ student.school }}</h3>
                 <figure class="image">
                     <img src="https://caroljli.github.io/assets/images/cartoon_carol.png">
                 </figure>
                 <br>
 
                 <div class="notification is-light">
-                   i like cats
+                  {{ student.bio }}
                 </div>
 
-                <h2 class="title is-5">Restaurants Carol Follows</h2>
+                <h2 class="title is-5">Restaurants {{ student.name }} Follows</h2>
 
                 <div class="notification is-warning">
                     <strong>Distrito</strong>
@@ -59,9 +59,11 @@
             <div class="container">
                 <h2 class="title is-4">Recent Activity</h2>
                 <h3 class="subtitle is-5">Read Carol's recent reviews.</h3>
-
+<!-- 
                 <button class="button is-fullwidth is-warning" style="font-family: Avenir"><strong>Write Review</strong></button>
-                <br>
+                <br> -->
+
+                {% for review in reviews %}
 
                 <div class="card">
                     <div class="card-image">
@@ -77,20 +79,20 @@
                                 </figure>
                             </div>
                             <div class="media-content">
-                                <p class="title is-4">John Smith</p>
-                                <p class="subtitle is-6">@johnsmith</p>
+                                <p class="title is-4">{{ review.student.name }}</p>
+                                <p class="subtitle is-6">@{{ review.user.username }}</p>
                             </div>
                         </div>
                   
                         <div class="content">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                            <a href="#">#css</a> <a href="#">#responsive</a>
-                            <br>
-                            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                            {{ review.body }}
+                            <br></br>
+                            <time datetime="2016-1-1" style="font-size: 12px;">{{ review.time }}</time>
                         </div>
                     </div>
                 </div>
+
+                {% endfor %}
 
             </div>
         </section>
