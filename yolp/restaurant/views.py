@@ -42,8 +42,10 @@ def view_locations(request):
     locations = Location.objects.all()
     return render(request, "view_restaurants.html", {"locations": locations})
 
-def category(request):
-    return render(request, "category.html", {})
+def category(request, id=None):
+    category = Category.objects.get(id=id)
+    restaurants = Restaurant.objects.filter(categories__id=category.id)
+    return render(request, "category.html", {"category": category, "restaurants": restaurants})
 
 # create new restaurant
 

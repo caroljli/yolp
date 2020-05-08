@@ -58,7 +58,7 @@
 
                 <div class="buttons are-small">
                     {% for category in categories %}
-                    <a class="button is-dark">{{ category.name }}</a>
+                    <a class="button is-dark" href="{% url 'category' category.id %}">{{ category.name }}</a>
                     {% endfor %}
                     <!-- <a class="button is-dark">Happy Hour</a> -->
                 </div>
@@ -103,7 +103,7 @@
                             </div>
                             <div class="media-content">
                                 <p class="title is-4">{{ review.get_name }}</p>
-                                <p class="subtitle is-6"><a href="{% url 'student_profile' user.username %}">@{{ review.get_username }}</a></p>
+                                <p class="subtitle is-6"><a href="{% url 'student_profile' review.get_username %}">@{{ review.get_username }}</a></p>
                             </div>
                         </div>
                         

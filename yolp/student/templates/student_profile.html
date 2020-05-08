@@ -85,7 +85,7 @@
                             </div>
                             <div class="media-content">
                                 <p class="title is-4">{{ review.get_name }}</p>
-                                <p class="subtitle is-6"><a href="{% url 'student_profile' user.username %}">@{{ review.get_username }}</a></p>
+                                <p class="subtitle is-6"><a href="{% url 'student_profile' review.get_username %}">@{{ review.get_username }}</a></p>
                             </div>
                         </div>
                         

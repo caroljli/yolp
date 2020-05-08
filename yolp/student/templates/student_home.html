@@ -42,7 +42,7 @@
                             </div>
                             <div class="media-content">
                                 <p class="title is-4">{{ review.get_name }}</p>
-                                <p class="subtitle is-6"><a href="{% url 'student_profile' user.username %}">@{{ review.get_username }}</a></p>
+                                <p class="subtitle is-6"><a href="{% url 'student_profile' review.get_username %}">@{{ review.get_username }}</a></p>
                             </div>
                         </div>
                         
@@ -68,29 +68,10 @@
     <div class="column">
         <section class="section">
             <div class="container">
-                <h2 class="title is-4">Suggested Restaurants</h2>
-                <h3 class="subtitle is-5">Based on your recent activity.</h3>
+                <h2 class="title is-4">Activity Stream</h2>
+                <h3 class="subtitle is-5">Recent Activity from Contributors to Restaurants You Follow.</h3>
 
-                <div class="notification is-light">
-                    <strong>Distrito</strong>
-                    <p>University of Pennsylvania // $$</p>
-                    <br>
-                    <button class="button is-small is-dark is-fullwidth">View</button>
-                </div>
-
-                <div class="notification is-light">
-                    <strong>Distrito</strong>
-                    <p>University of Pennsylvania // $$</p>
-                    <br>
-                    <button class="button is-small is-dark is-fullwidth">View</button>
-                </div>
-
-                <div class="notification is-light">
-                    <strong>Distrito</strong>
-                    <p>University of Pennsylvania // $$</p>
-                    <br>
-                    <button class="button is-small is-dark is-fullwidth">View</button>
-                </div>
+                
 
             </div>
         </section>
