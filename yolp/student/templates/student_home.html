@@ -22,50 +22,53 @@
             <div class="container">
                 <h2 class="title is-4">Activity from Restaurants You Follow</h2>
                 <h3 class="subtitle is-5">Keep updated on reviews.</h3>
-
-                {% for review in reviews %}
-
-                <div class="card">
-                    {% if review.picture_is_not_null %}
-                    <div class="card-image">
-                        <figure class="image is-4by3">
-                            <img src="{{ review.picture }}">
-                        </figure>
-                    </div>
-                    {% endif %}
-                    <div class="card-content">
-                        <div class="media">
-                            <div class="media-left">
-                                <figure class="image is-48x48">
-                                    <img src="{{ review.get_user_picture }}">
+                
+                <div class="columns is-multiline">
+                    {% for review in reviews %}
+                    <div class="column is-half">
+                        <div class="card">
+                            {% if review.picture_is_not_null %}
+                            <div class="card-image">
+                                <figure class="image is-4by3">
+                                    <img src="{{ review.picture }}">
                                 </figure>
                             </div>
-                            <div class="media-content">
-                                <p class="title is-4">{{ review.get_name }}</p>
-                                <p class="subtitle is-6"><a href="{% url 'student_profile' review.get_username %}">@{{ review.get_username }}</a></p>
+                            {% endif %}
+                            <div class="card-content">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <figure class="image is-48x48">
+                                            <img src="{{ review.get_user_picture }}">
+                                        </figure>
+                                    </div>
+                                    <div class="media-content">
+                                        <p class="title is-4">{{ review.get_name }}</p>
+                                        <p class="subtitle is-6"><a href="{% url 'student_profile' review.get_username %}">@{{ review.get_username }}</a></p>
+                                    </div>
+                                </div>
+                                
+                                <div class="content">
+                                    <h3>{{ review.title }} <a style="color: #ffc21c" href="{% url 'restaurant' review.get_restaurant_url %}">@ {{ review.get_restaurant_name }}</a></h3>
+                                </div>
+
+                                <div class="content">
+                                    {{ review.body }}
+                                    <br></br>
+                                    <time datetime="2016-1-1" style="font-size: 12px;">{{ review.time }}</time>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="content">
-                            <h3>{{ review.title }} <a style="color: #ffc21c" href="{% url 'restaurant' review.get_restaurant_url %}">@ {{ review.get_restaurant_name }}</a></h3>
-                        </div>
 
-                        <div class="content">
-                            {{ review.body }}
-                            <br></br>
-                            <time datetime="2016-1-1" style="font-size: 12px;">{{ review.time }}</time>
-                        </div>
+                        <br>
                     </div>
+
+                    {% endfor %}
                 </div>
-
-                <br>
-
-                {% endfor %}
 
             </div>
         </section>
     </div>
-    <div class="column">
+    <!-- <div class="column">
         <section class="section">
             <div class="container">
                 <h2 class="title is-4">Restaurants Near You</h2>
@@ -91,7 +94,7 @@
 
             </div>
         </section>
-    </div>
+    </div> -->
     <div class="column is-one-fifth"></div>
 </div>
 
