@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.models import User
 from student.models import Student, Review
-from restaurant.models import Restaurant, Follow
+from restaurant.models import Restaurant, Follow, Location, Category
 from restaurant_admin.models import RestaurantAdmin
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -24,19 +24,23 @@ def logout_view(request):
 
 # restaurant pages
 
-def restaurant(request, name=None):
-    if Restaurant.objects.get(restaurant_name=name):
-        restaurant = Restaurant.objects.get(restaurant_name=name)
+def restaurant(request, url=None):
+    if Restaurant.objects.get(url=url):
+        restaurant = Restaurant.objects.get(url=url)
         reviews = Review.objects.filter(restaurant=restaurant.id)
-        return render(request, "restaurant.html", {"restaurant": restaurant, "reviews": reviews})
+        categories = restaurant.categories.all()
+        return render(request, "restaurant.html", {"restaurant": restaurant, "reviews": reviews, "categories": categories})
     else:
         return render("404: restaurant not found")
 
-def view_restaurants(request):
-    return render(request, "view_restaurants.html", {})
+def browse(request, id=None):
+    location = Location.objects.get(id=id)
+    restaurants = Restaurant.objects.filter(location=location)
+    return render(request, "browse.html", {"restaurants": restaurants, "location": location})
 
-def browse(request):
-    return render(request, "browse.html", {})
+def view_locations(request):
+    locations = Location.objects.all()
+    return render(request, "view_restaurants.html", {"locations": locations})
 
 def category(request):
     return render(request, "category.html", {})
@@ -53,7 +57,17 @@ def new_restaurant_view(request):
     price = request.POST.get("price")
     description = request.POST.get("description")
     picture = request.POST.get("picture")
-    Restaurant.objects.create(user=request.user, admin=RestaurantAdmin.objects.get(user=request.user), restaurant_name=name, price=price, school=school, description=description, address=address, picture=picture)
+    location, created = Location.objects.get_or_create(name=school)
+    categories = request.POST.get("categories")
+    url = request.POST.get("url")
+    restaurant = Restaurant.objects.create(user=request.user, admin=RestaurantAdmin.objects.get(user=request.user), restaurant_name=name, price=price, school=school, description=description, address=address, picture=picture, location=location, url=url)
+    
+    category_body = categories.split(",")
+
+    for n, category in enumerate(category_body):
+        new_category, created = Category.objects.get_or_create(name=category)
+        restaurant.categories.add(new_category)
+
     return redirect('/new_restaurant_complete')
 
 def new_restaurant_complete(request):

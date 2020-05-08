@@ -20,15 +20,17 @@
     <div class="column">
         <br>
         <div class="columns is-multiline">
+
+            {% for location in locations %}
+
             <div class="column is-one-third">
                 <div class="notification is-light">
-                    <strong>University of Pennsylvania</strong>
-                    <p>2 restaurants</p>
-                    <br>
-                    <a class="button is-small is-dark is-fullwidth" href="/browse">Browse</a>
+                    <strong>{{ location.name }}</strong>
+                    <br></br>
+                    <a class="button is-small is-dark is-fullwidth" href="{% url 'browse' location.id %}">Browse</a>
                  </div>
             </div>
-            <div class="column is-one-third">
+            <!-- <div class="column is-one-third">
                 <div class="notification is-light">
                     <strong>Drexel University</strong>
                     <p>2 restaurants</p>
@@ -59,7 +61,9 @@
                     <br>
                     <a class="button is-small is-dark is-fullwidth" href="/browse">Browse</a>
                  </div>
-            </div>
+            </div> -->
+
+            {% endfor %}
         </div>
     </div>
     <div class="column is-one-fifth"></div>

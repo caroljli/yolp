@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.models import User
 from student.models import Student, Review
-from restaurant.models import Follow
+from restaurant.models import Follow, Restaurant
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
@@ -46,7 +46,11 @@ def student_register_view(request):
 def student_home(request):
     user = request.user
     student = Student.objects.get(user=request.user)
-    return render(request, "student_home.html", {"user": user, "student": student})
+    follows = Follow.objects.filter(user=user)
+    reviews = Review.objects.none()
+    for follow in follows:
+        reviews |= Review.objects.filter(restaurant=follow.restaurant)
+    return render(request, "student_home.html", {"user": user, "student": student, "reviews": reviews})
 
 def student_register_complete(request):
     return render(request, "student_register_complete.html", {})
@@ -67,21 +71,12 @@ def new_review(request):
     if request.method == 'POST':
         title = request.POST.get('review_title')
         body = request.POST.get('review_body')
-        review = Review.objects.create(title=title, body=body, user=request.user, student=Student.objects.get(user=request.user))
+        restaurant_name = request.POST.get('restaurant')
+        if Restaurant.objects.get(restaurant_name=restaurant_name) is None:
+            return render("restaurant does not exist!")
+        else:
+            restaurant = Restaurant.objects.get(restaurant_name=restaurant_name)
+            review = Review.objects.create(title=title, body=body, user=request.user, student=Student.objects.get(user=request.user), restaurant=restaurant)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-        # post_body = tweet.body.split(" ")
-        # for n, word in enumerate(post_body):
-        #     if '#' in word:
-        #         word = word[1:]
-        #         if not Hashtag.objects.filter(content=word).exists():
-        #             hashtag = Hashtag.objects.create(content=word)
-        #         else:
-        #             hashtag = Hashtag.objects.get(content=word)
-        #         tweet.hashtags.add(hashtag)
-        #         post_body[n] = '<a href="' + '/.' + '/hashtag/' + word + '">#' + word + '</a>'
-
-        # post_body_str = " ".join(post_body)
-        # setattr(tweet, 'body', post_body_str)
-        # tweet.save()
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    

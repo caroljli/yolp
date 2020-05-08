@@ -24,29 +24,44 @@
                 <h2 class="title is-4">Restaurant Activity</h2>
                 <h3 class="subtitle is-5">Recent reviews to your restaurants.</h3>
 
+                {% for review in reviews %}
+
                 <div class="card">
+                    {% if review.picture_is_not_null %}
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img src="{{ review.picture }}">
+                        </figure>
+                    </div>
+                    {% endif %}
                     <div class="card-content">
                         <div class="media">
                             <div class="media-left">
                                 <figure class="image is-48x48">
-                                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                                    <img src="{{ review.get_user_picture }}">
                                 </figure>
                             </div>
                             <div class="media-content">
-                                <p class="title is-4">John Smith</p>
-                                <p class="subtitle is-6">@johnsmith</p>
+                                <p class="title is-4">{{ review.get_name }}</p>
+                                <p class="subtitle is-6"><a href="{% url 'student_profile' user.username %}">@{{ review.get_username }}</a></p>
                             </div>
                         </div>
-                  
+                        
                         <div class="content">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                            <a href="#">#css</a> <a href="#">#responsive</a>
-                            <br>
-                            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                            <h3>{{ review.title }} <a style="color: #ffc21c" href="{% url 'restaurant' review.get_restaurant_url %}">@ {{ review.get_restaurant_name }}</a></h3>
+                        </div>
+
+                        <div class="content">
+                            {{ review.body }}
+                            <br></br>
+                            <time datetime="2016-1-1" style="font-size: 12px;">{{ review.time }}</time>
                         </div>
                     </div>
                 </div>
+
+                <br>
+
+                {% endfor %}
 
             </div>
         </section>
@@ -63,7 +78,7 @@
                     <strong>{{ restaurant.restaurant_name }}</strong>
                     <p>{{ restaurant.school }} // {{ restaurant.price }}</p>
                     <br>
-                    <a class="button is-small is-light is-warning is-fullwidth" href="{% url 'restaurant' restaurant.restaurant_name %}">View</a>
+                    <a class="button is-small is-light is-warning is-fullwidth" href="{% url 'restaurant' restaurant.url %}">View</a>
                     
                 </div>
 

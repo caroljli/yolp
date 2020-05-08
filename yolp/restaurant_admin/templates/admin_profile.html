@@ -13,7 +13,7 @@
         </h2>
         <!-- TODO: potential edit feature -->
         <!-- <button class="button is-light" style="font-family: Avenir"><strong>Follow</strong></button> -->
-        <button class="button is-warning is-light" style="font-family: Avenir"><strong>Edit Profile</strong></button>
+        <!-- <button class="button is-warning is-light" style="font-family: Avenir"><strong>Edit Profile</strong></button> -->
       </div>
     </div>
 </section>
@@ -25,9 +25,11 @@
             <div class="container">
                 <h2 class="title is-4">About {{ rest_admin.name }}</h2>
                 <h3 class="subtitle is-5">@{{ user.username }}</h3>
+                {% if rest_admin.picture_is_not_null %}
                 <figure class="image">
-                    <img src="https://i.pinimg.com/originals/f0/5e/ba/f05eba7018d18db1655caf73a980f62d.jpg">
+                    <img src="{{ student.picture }}">
                 </figure>
+                {% endif %}
                 <br>
 
                 <div class="notification is-light">
@@ -49,7 +51,7 @@
                     <strong>{{ restaurant.restaurant_name }}</strong>
                     <p>{{ restaurant.school }} // {{ restaurant.price }}</p>
                     <br>
-                    <a class="button is-small is-light is-warning is-fullwidth" href="{% url 'restaurant' restaurant.restaurant_name %}">View</a>
+                    <a class="button is-small is-light is-warning is-fullwidth" href="{% url 'restaurant' restaurant.url %}">View</a>
                     
                 </div>
 

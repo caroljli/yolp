@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from restaurant.views import splash, logout_view, restaurant, view_restaurants, browse, category, new_restaurant, new_restaurant_view, new_restaurant_complete, follow
+from restaurant.views import splash, logout_view, restaurant, view_locations, browse, category, new_restaurant, new_restaurant_view, new_restaurant_complete, follow
 from student.views import student_login, student_register, student_login_view, student_register_view, student_register_complete, student_home, student_profile, new_review
 from restaurant_admin.views import restaurant_login, restaurant_register, restaurant_register_complete, restaurant_login_view, restaurant_register_view, restaurant_home, admin_profile
 
@@ -45,9 +45,9 @@ urlpatterns = [
     path('new_review/', new_review, name="new_review"),
 
     # restaurant
-    path('restaurant/<slug:name>', restaurant, name="restaurant"),
-    path('view_restaurants/', view_restaurants, name="view_restaurants"),
-    path('browse/', browse, name="browse"),
+    path('restaurant/<slug:url>', restaurant, name="restaurant"),
+    path('view_locations/', view_locations, name="view_locations"),
+    path('browse/<slug:id>', browse, name="browse"),
     path('admin_profile/<slug:username>', admin_profile, name="admin_profile"),
     path('category/', category, name="category"),
     path('new_restaurant/', new_restaurant, name="new_restaurant"),

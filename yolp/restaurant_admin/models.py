@@ -19,3 +19,9 @@ class RestaurantAdmin(models.Model):
     picture = models.CharField(max_length=600, null=True)
     is_student = False
     is_restaurant = True
+
+    def picture_is_not_null(self):
+        if self.picture is not None:
+            return True
+        else:
+            return False

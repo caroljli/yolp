@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.models import User
 from restaurant_admin.models import RestaurantAdmin
 from restaurant.models import Restaurant
+from student.models import Review, Student
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
@@ -47,7 +48,10 @@ def restaurant_home(request):
     user = request.user
     rest_admin = RestaurantAdmin.objects.get(user=request.user)
     restaurants = Restaurant.objects.filter(user=user)
-    return render(request, "restaurant_home.html", {"user": user, "rest_admin": rest_admin, "restaurants": restaurants})
+    reviews = Review.objects.none()
+    for restaurant in restaurants:
+        reviews |= Review.objects.filter(restaurant=restaurant)
+    return render(request, "restaurant_home.html", {"user": user, "rest_admin": rest_admin, "restaurants": restaurants, "reviews": reviews})
 
 def restaurant_register_complete(request):
     return render(request, "restaurant_register_complete.html", {})

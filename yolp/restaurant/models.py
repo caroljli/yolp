@@ -14,6 +14,7 @@ class Category(models.Model):
     name = models.CharField(max_length=200)
 
 class Location(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
 
 class Restaurant(models.Model):
@@ -27,11 +28,12 @@ class Restaurant(models.Model):
     description = models.TextField(null=True)
     address = models.CharField(max_length=200, null=True)
     school = models.CharField(max_length=200, null=True)
-    categories = models.ManyToManyField(Category, blank=True)
-    location = models.ForeignKey(Location, blank=True, null=True, on_delete=models.CASCADE)
+    categories = models.ManyToManyField(Category, related_name='categories', blank=True)
+    location = models.ForeignKey(Location, null=True, on_delete=models.CASCADE)
     time = models.DateTimeField(auto_now=True, null=True)
     picture = models.CharField(max_length=600, null=True)
     followed_by = models.ManyToManyField(User, related_name='followed_by', blank=True)
+    url = models.CharField(max_length=100, null=True)
 
     def picture_is_not_null(self):
         if self.picture is not None:

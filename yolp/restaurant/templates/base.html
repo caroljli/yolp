@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="navbar-item">
-                      <a class="navbar-item" href="/view_restaurants">
+                      <a class="navbar-item" href="/view_locations">
                         <strong>
                           Browse
                         </strong>
@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="navbar-item">
-                      <a class="navbar-item" href="/view_restaurants">
+                      <a class="navbar-item" href="/view_locations">
                         <strong>
                           Browse
                         </strong>
@@ -148,9 +148,16 @@
               <form method="POST" action="/new_review/">
                 {% csrf_token %}
                   <div class="field">
-                    <label class="label">Title<a style="color: red">*</a></label>
+                    <label class="label">Title <a style="color: red">*</a></label>
                     <div class="control">
                       <input name="review_title" class="input" placeholder="eg. Distrito Overall">
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label class="label">Restaurant <a style="color: red">*</a></label>
+                    <div class="control">
+                      <input name="restaurant" class="input" placeholder="eg. Distrito">
                     </div>
                   </div>
 
@@ -162,7 +169,7 @@
                   </div>
 
                   <div class="field">
-                      <label class="label">Content<a style="color: red">*</a></label>
+                      <label class="label">Content <a style="color: red">*</a></label>
                       <div class="control">
                         <input name="review_body" class="textarea" placeholder="e.g. I think Distrito is a really cool non-profit!">
                       </div>

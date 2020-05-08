@@ -47,7 +47,7 @@ class Review(models.Model):
     time = models.DateTimeField(auto_now=True, null=True)
     title = models.CharField(max_length=200)
     body = models.TextField()
-    picture = models.CharField(max_length=600, null=True)
+    picture = models.CharField(max_length=600, null=True, blank=True)
 
     def get_username(self):
         return self.user.username
@@ -69,3 +69,9 @@ class Review(models.Model):
             return True
         else:
             return False
+    
+    def get_restaurant_name(self):
+        return self.restaurant.restaurant_name
+
+    def get_restaurant_url(self):
+        return self.restaurant.url
