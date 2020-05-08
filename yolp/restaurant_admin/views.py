@@ -52,8 +52,11 @@ def restaurant_home(request):
 def restaurant_register_complete(request):
     return render(request, "restaurant_register_complete.html", {})
 
-def admin_profile(request):
-    user = request.user
-    rest_admin = RestaurantAdmin.objects.get(user=user)
-    restaurants = Restaurant.objects.filter(user=user)
-    return render(request, "admin_profile.html", {"user": user, "rest_admin": rest_admin, "restaurants": restaurants})
+def admin_profile(request, username=None):
+    if User.objects.get(username=username):
+        user = User.objects.get(username=username)
+        rest_admin = RestaurantAdmin.objects.get(user=user)
+        restaurants = Restaurant.objects.filter(user=user)
+        return render(request, "admin_profile.html", {"user": user, "rest_admin": rest_admin, "restaurants": restaurants})
+    else:
+        return render("404 user not found")

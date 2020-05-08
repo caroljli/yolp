@@ -40,7 +40,7 @@ urlpatterns = [
     path('student_register_view/', student_register_view, name="student_register_view"),
     path('student_register_complete/', student_register_complete, name="student_register_complete"),
     path('student_home/', student_home, name="student_home"),
-    path('student_profile/', student_profile, name="student_profile"),
+    path('student_profile/<slug:username>', student_profile, name="student_profile"),
 
     path('new_review/', new_review, name="new_review"),
 
@@ -48,7 +48,7 @@ urlpatterns = [
     path('restaurant/<slug:name>', restaurant, name="restaurant"),
     path('view_restaurants/', view_restaurants, name="view_restaurants"),
     path('browse/', browse, name="browse"),
-    path('admin_profile/', admin_profile, name="admin_profile"),
+    path('admin_profile/<slug:username>', admin_profile, name="admin_profile"),
     path('category/', category, name="category"),
     path('new_restaurant/', new_restaurant, name="new_restaurant"),
     path('new_restaurant_view/', new_restaurant_view, name="new_restaurant_view"),

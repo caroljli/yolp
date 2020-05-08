@@ -11,30 +11,32 @@
         <h2 class="subtitle">
             {{ restaurant.school}} // <strong>{{ restaurant.price }}</strong>
         </h2>
-        {% if request.user not in restaurant.followed_by.all %}
-        <form method="POST" action="/follow/">
-            {% csrf_token %}
-              <div class="buttons">
-                <button class="button is-light" style="font-family: Avenir" type="submit" name='follow' value='{{ restaurant.restaurant_name }}'>
-                    <span class="icon">
-                        <i class="fa fa-plus"></i>
-                    </span>
-                    <strong>Follow</strong>
-                </button>
-              </div>
-        </form>
-        {% else %}
-        <form method="POST" action="/follow/">
-            {% csrf_token %}
-              <div class="buttons">
-                <button class="button is-dark" style="font-family: Avenir" type="submit" name='unfollow' value='{{ restaurant.restaurant_name }}'>
-                    <span class="icon">
-                        <i class="fa fa-minus"></i>
-                    </span>
-                    <strong>Unfollow</strong>
-                </button>
-              </div>
-        </form>
+        {% if user.student %}
+            {% if request.user not in restaurant.followed_by.all %}
+            <form method="POST" action="/follow/">
+                {% csrf_token %}
+                <div class="buttons">
+                    <button class="button is-light" style="font-family: Avenir" type="submit" name='follow' value='{{ restaurant.restaurant_name }}'>
+                        <span class="icon">
+                            <i class="fa fa-plus"></i>
+                        </span>
+                        <strong>Follow</strong>
+                    </button>
+                </div>
+            </form>
+            {% else %}
+            <form method="POST" action="/follow/">
+                {% csrf_token %}
+                <div class="buttons">
+                    <button class="button is-dark" style="font-family: Avenir" type="submit" name='unfollow' value='{{ restaurant.restaurant_name }}'>
+                        <span class="icon">
+                            <i class="fa fa-minus"></i>
+                        </span>
+                        <strong>Unfollow</strong>
+                    </button>
+                </div>
+            </form>
+            {% endif %}
         {% endif %}
       </div>
     </div>

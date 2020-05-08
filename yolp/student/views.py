@@ -51,12 +51,15 @@ def student_home(request):
 def student_register_complete(request):
     return render(request, "student_register_complete.html", {})
 
-def student_profile(request):
-    user = request.user
-    student = Student.objects.get(user=user)
-    reviews = Review.objects.filter(user=user)
-    followed_restaurants = Follow.objects.filter(user=user)
-    return render(request, "student_profile.html", {"user": user, "student": student, "reviews": reviews, "follows": followed_restaurants})
+def student_profile(request, username=None):
+    if User.objects.get(username=username):
+        user = User.objects.get(username=username)
+        student = Student.objects.get(user=user)
+        reviews = Review.objects.filter(user=user)
+        followed_restaurants = Follow.objects.filter(user=user)
+        return render(request, "student_profile.html", {"user": user, "student": student, "reviews": reviews, "follows": followed_restaurants})
+    else:
+        return render("404 user not found")
 
 # posts
 

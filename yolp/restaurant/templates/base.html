@@ -33,7 +33,7 @@
                     </div>
       
                     <div class="navbar-item">
-                      <a class="navbar-item" href="/student_profile">
+                      <a class="navbar-item" href="{% url 'student_profile' user.username %}">
                         <strong>
                           Profile
                         </strong>
@@ -72,7 +72,7 @@
                     </div>
       
                     <div class="navbar-item">
-                      <a class="navbar-item" href="/admin_profile">
+                      <a class="navbar-item" href="{% url 'admin_profile' user.username %}">
                         <strong>
                           Profile
                         </strong>
