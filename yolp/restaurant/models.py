@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from restaurant_admin.models import RestaurantAdmin
+from django.contrib.gis.geoip2 import GeoIP2
 
 PRICE_CHOICES = (
     ('$','$'),
@@ -35,6 +36,8 @@ class Restaurant(models.Model):
     picture = models.CharField(max_length=600, null=True)
     followed_by = models.ManyToManyField(User, related_name='followed_by', blank=True)
     url = models.CharField(max_length=100, null=True)
+    coorindates = []
+    website = models.CharField(max_length=600, null=True)
 
     def picture_is_not_null(self):
         if self.picture is not None:

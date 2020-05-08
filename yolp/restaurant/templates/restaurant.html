@@ -72,6 +72,24 @@
                     {{ restaurant.description }}
                 </div>
 
+                <div id='map' style='width: auto; height: 300px;'></div>
+                <script>
+                    var coorindates = '{{ restaurant.coordinates }}';
+                    mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fyb2xqbGkiLCJhIjoiY2s5eWk2dTNiMDUzcTNtbzYya2RnOGtzbyJ9.DEmWB41X38OECo7s_GfAFQ';
+                    var map = new mapboxgl.Map({
+                        container: 'map',
+                        style: 'mapbox://styles/mapbox/streets-v11',
+                        center: coordinates,
+                        zoom: 9
+                    });
+
+                    var marker = new mapboxgl.Marker()
+                        .setLngLat(coordinates)
+                        .addTo(map);
+                        
+                </script>
+
+
             </div>
         </section>
     </div>

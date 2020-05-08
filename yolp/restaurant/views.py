@@ -6,6 +6,7 @@ from restaurant.models import Restaurant, Follow, Location, Category
 from restaurant_admin.models import RestaurantAdmin
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.contrib.gis.geoip2 import GeoIP2
 
 def splash(request):
     if request.user.is_authenticated:
@@ -53,6 +54,8 @@ def new_restaurant(request):
     return render(request, "new_restaurant.html", {})
 
 def new_restaurant_view(request):
+    g = GeoIP2()
+
     name = request.POST.get("restaurant_name")
     school = request.POST.get("school")
     address = request.POST.get("address")
@@ -62,11 +65,22 @@ def new_restaurant_view(request):
     location, created = Location.objects.get_or_create(name=school)
     categories = request.POST.get("categories")
     url = request.POST.get("url")
-    restaurant = Restaurant.objects.create(user=request.user, admin=RestaurantAdmin.objects.get(user=request.user), restaurant_name=name, price=price, school=school, description=description, address=address, picture=picture, location=location, url=url)
+    website = request.POST.get("website")
+
+    coordinates = list(g.lon_lat(website))
+
+    restaurant = Restaurant.objects.create(user=request.user, 
+                                           admin=RestaurantAdmin.objects.get(user=request.user), 
+                                           restaurant_name=name, price=price, school=school, 
+                                           description=description, address=address, 
+                                           picture=picture, location=location, 
+                                           url=url, website=website,
+                                           coordinates=coordinates)
     
     category_body = categories.split(",")
 
     for n, category in enumerate(category_body):
+        category.replace(" ", "")
         new_category, created = Category.objects.get_or_create(name=category)
         restaurant.categories.add(new_category)
 

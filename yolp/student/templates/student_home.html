@@ -68,9 +68,15 @@
     <div class="column">
         <section class="section">
             <div class="container">
-                <h2 class="title is-4">Activity Stream</h2>
-                <h3 class="subtitle is-5">Recent Activity from Contributors to Restaurants You Follow.</h3>
-
+                <h2 class="title is-4">Restaurants Near You</h2>
+                <h3 class="subtitle is-5">Find restaurants near your location.</h3>
+                <script>
+                    mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fyb2xqbGkiLCJhIjoiY2s5eWk2dTNiMDUzcTNtbzYya2RnOGtzbyJ9.DEmWB41X38OECo7s_GfAFQ';
+                    var map = new mapboxgl.Map({
+                        container: 'map',
+                        style: 'mapbox://styles/mapbox/streets-v11',
+                    });
+                </script>
                 
 
             </div>
