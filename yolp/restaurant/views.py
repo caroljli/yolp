@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from geopy.geocoders import Nominatim
 
+# logistical
+
 def splash(request):
     if request.user.is_authenticated:
         if Student.objects.filter(user=request.user).count() > 0:

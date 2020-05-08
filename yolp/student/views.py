@@ -63,7 +63,7 @@ def student_profile(request, username=None):
         followed_restaurants = Follow.objects.filter(user=user)
         return render(request, "student_profile.html", {"user": user, "student": student, "reviews": reviews, "follows": followed_restaurants})
     else:
-        return render("404 user not found")
+        return HttpResponseNotFound()
 
 # posts
 
@@ -72,11 +72,12 @@ def new_review(request):
         title = request.POST.get('review_title')
         body = request.POST.get('review_body')
         restaurant_name = request.POST.get('restaurant')
+        review_photo = request.POST.get('review_photo')
         if Restaurant.objects.get(restaurant_name=restaurant_name) is None:
-            return render("restaurant does not exist!")
+            return HttpTesponseNotFound()
         else:
             restaurant = Restaurant.objects.get(restaurant_name=restaurant_name)
-            review = Review.objects.create(title=title, body=body, user=request.user, student=Student.objects.get(user=request.user), restaurant=restaurant)
+            review = Review.objects.create(title=title, body=body, user=request.user, student=Student.objects.get(user=request.user), restaurant=restaurant, picture=review_photo)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     

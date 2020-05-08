@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="columns">
+    <div class="column is-one-third"></div>
+    <div class="column">
+        <br></br>
+        <h1 class="title">Register Your Restaurant</h1>
+        <h2 class="subtitle">It's easy to add your restaurant!</h2>
+        </br>
+
+        <div class="box">
+            <form method="POST" action="/new_restaurant_view/">
+                {% csrf_token %}
+                <div class="field">
+                    <label class="label">Restaurant Name</label>
+                    <div class="control">
+                        <input name="restaurant_name" class="input" placeholder="eg. Distrito">
+                    </div>
+                </div>
+    
+                <div class="field">
+                    <label class="label">School</label>
+                    <div class="control">
+                        <input name="school" class="input" placeholder="eg. University of Pennsylvania">
+                    </div>
+                </div>
+                    
+                <div class="field">
+                    <label class="label">Address</label>
+                    <div class="control">
+                        <input name="address" class="input" placeholder="eg. 40th and Chestnut">
+                    </div>
+                </div>
+    
+                <div class="field">
+                    <label class="label">Price Range</label>
+                    <div class="control">
+                        <div class="select" name="price">
+                        <select>
+                            <option>$</option>
+                            <option>$$</option>
+                            <option>$$$</option>
+                            <option>$$$$</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+                    
+                <div class="field">
+                    <label class="label">Description</label>
+                    <div class="control">
+                        <textarea name="description" class="textarea" placeholder="eg. A non-profit!"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Picture</label>
+                    <div class="control">
+                      <textarea name="picture" class="input" placeholder="eg. http://google.com!"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Custom URL</label>
+                    <div class="control">
+                        <textarea name="url" class="input" placeholder="eg. distrito"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Website</label>
+                    <div class="control">
+                        <textarea name="website" class="input" placeholder="eg. http://distrito.com/"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Categories</label>
+                    <div class="control">
+                        <textarea name="categories" class="input" placeholder="eg. Mexican, Happy Hour"></textarea>
+                    </div>
+                </div>
+    
+                <div class="buttons has-addons is-centered">
+                    <input type="submit" value="Create Restaurant" class="button is-warning"></input>
+                </div>
+                
+            </form>
+        </div>
+
+    </div>
+    <div class="column is-one-third"></div>
+</div>
+
+{% endblock %}
