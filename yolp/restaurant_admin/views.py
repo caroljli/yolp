@@ -5,7 +5,9 @@ from restaurant_admin.models import RestaurantAdmin
 from restaurant.models import Restaurant
 from student.models import Review, Student
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
+import json
+from django.core import serializers
 
 # restaurant authentication
 
@@ -64,3 +66,9 @@ def admin_profile(request, username=None):
         return render(request, "admin_profile.html", {"user": user, "rest_admin": rest_admin, "restaurants": restaurants})
     else:
         return render("404 user not found")
+
+def export_reviews(request, url=None):
+    restaurant = Restaurant.objects.get(url=url)
+    reviews = list(Review.objects.filter(restaurant=restaurant))
+    s_reviews = serializers.serialize('json', reviews)
+    return HttpResponse(s_reviews, content_type="application/json")

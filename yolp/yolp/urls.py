@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from restaurant.views import splash, logout_view, restaurant, view_locations, browse, category, new_restaurant, new_restaurant_view, new_restaurant_complete, follow
 from student.views import student_login, student_register, student_login_view, student_register_view, student_register_complete, student_home, student_profile, new_review
-from restaurant_admin.views import restaurant_login, restaurant_register, restaurant_register_complete, restaurant_login_view, restaurant_register_view, restaurant_home, admin_profile
+from restaurant_admin.views import restaurant_login, restaurant_register, restaurant_register_complete, restaurant_login_view, restaurant_register_view, restaurant_home, admin_profile, export_reviews
 
 urlpatterns = [
     # general
@@ -32,6 +32,7 @@ urlpatterns = [
     path('restaurant_register_view/', restaurant_register_view, name="restaurant_register_view"),
     path('restaurant_register_complete/', restaurant_register_complete, name="restaurant_register_complete"),
     path('restaurant_home/', restaurant_home, name="restaurant_home"),
+    path('export_reviews/<slug:url>', export_reviews, name="export_reviews"),
 
     # student
     path('student_login/', student_login, name="student_login"),
