@@ -44,24 +44,26 @@ def student_register_view(request):
 
 # student pages
 def student_home(request):
+    all_restaurants = Restaurant.objects.all()
     user = request.user
     student = Student.objects.get(user=request.user)
     follows = Follow.objects.filter(user=user)
     reviews = Review.objects.none()
     for follow in follows:
         reviews |= Review.objects.filter(restaurant=follow.restaurant)
-    return render(request, "student_home.html", {"user": user, "student": student, "reviews": reviews})
+    return render(request, "student_home.html", {"user": user, "student": student, "reviews": reviews, "restaurants": all_restaurants})
 
 def student_register_complete(request):
     return render(request, "student_register_complete.html", {})
 
 def student_profile(request, username=None):
+    all_restaurants = Restaurant.objects.all()
     if User.objects.get(username=username):
         user = User.objects.get(username=username)
         student = Student.objects.get(user=user)
         reviews = Review.objects.filter(user=user)
         followed_restaurants = Follow.objects.filter(user=user)
-        return render(request, "student_profile.html", {"user": user, "student": student, "reviews": reviews, "follows": followed_restaurants})
+        return render(request, "student_profile.html", {"user": user, "student": student, "reviews": reviews, "follows": followed_restaurants, "restaurants": all_restaurants})
     else:
         return HttpResponseNotFound()
 
@@ -73,6 +75,7 @@ def new_review(request):
         body = request.POST.get('review_body')
         restaurant_name = request.POST.get('restaurant')
         review_photo = request.POST.get('review_photo')
+
         if Restaurant.objects.get(restaurant_name=restaurant_name) is None:
             return HttpTesponseNotFound()
         else:

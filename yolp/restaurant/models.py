@@ -3,12 +3,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from restaurant_admin.models import RestaurantAdmin
 
-PRICE_CHOICES = (
-    ('$','$'),
-    ('$$', '$$'),
-    ('$$$','$$$'),
-    ('$$$$','$$$$'),
-)
+# PRICE_CHOICES = (
+#     ('$','$'),
+#     ('$$', '$$'),
+#     ('$$$','$$$'),
+#     ('$$$$','$$$$'),
+# )
 
 class Category(models.Model):
     id = models.AutoField(primary_key=True)
@@ -25,7 +25,7 @@ class Restaurant(models.Model):
 
     # restaurant details
     restaurant_name = models.CharField(max_length=200)
-    price = models.CharField(max_length=4, choices=PRICE_CHOICES, default='$', null=True)
+    price = models.CharField(max_length=4, default='$')
     description = models.TextField(null=True)
     address = models.CharField(max_length=200, null=True)
     school = models.CharField(max_length=200, null=True)

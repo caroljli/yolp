@@ -47,7 +47,7 @@ class Review(models.Model):
     time = models.DateTimeField(auto_now=True, null=True)
     title = models.CharField(max_length=200)
     body = models.TextField()
-    picture = models.CharField(max_length=600, null=True, blank=True)
+    picture = models.CharField(max_length=600, null=True, default=None, blank=True)
 
     def get_username(self):
         return self.user.username

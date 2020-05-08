@@ -158,10 +158,23 @@
                     </div>
                   </div>
 
-                  <div class="field">
+                  <!-- <div class="field">
                     <label class="label">Restaurant <a style="color: red">*</a></label>
                     <div class="control">
                       <input name="restaurant" class="input" placeholder="eg. Distrito">
+                    </div>
+                  </div> -->
+
+                  <div class="field">
+                    <label class="label">Restaurant</label>
+                    <div class="control">
+                        <div class="select" name="restaurant">
+                        <select name="restaurant">
+                            {% for restaurant in restaurants %}
+                            <option value="{{ restaurant.restaurant_name }}">{{ restaurant.restaurant_name }}</option>
+                            {% endfor %}
+                        </select>
+                        </div>
                     </div>
                   </div>
 
