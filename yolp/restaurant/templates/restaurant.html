@@ -67,6 +67,11 @@
                     Price Range: <strong>{{ restaurant.price }}</strong>
                     <p></p>
                     {{ restaurant.address }}
+                    <p></p>
+                    {% if restaurant.website is not None %}
+                    <a href='{{ restaurant.website }}'>{{ restaurant.website }}</a>
+                    {% endif %}
+                    <p></p>
                 </div>
                 <div class="notification is-warning">
                     {{ restaurant.description }}
@@ -74,17 +79,18 @@
 
                 <div id='map' style='width: auto; height: 300px;'></div>
                 <script>
-                    var coorindates = '{{ restaurant.coordinates }}';
+                    var x_coord = '{{ restaurant.x_coord }}';
+                    var y_coord = '{{ restaurant.y_coord }}';
                     mapboxgl.accessToken = 'pk.eyJ1IjoiY2Fyb2xqbGkiLCJhIjoiY2s5eWk2dTNiMDUzcTNtbzYya2RnOGtzbyJ9.DEmWB41X38OECo7s_GfAFQ';
                     var map = new mapboxgl.Map({
                         container: 'map',
                         style: 'mapbox://styles/mapbox/streets-v11',
-                        center: coordinates,
+                        center: [ y_coord, x_coord ],
                         zoom: 9
                     });
 
                     var marker = new mapboxgl.Marker()
-                        .setLngLat(coordinates)
+                        .setLngLat([ y_coord, x_coord ])
                         .addTo(map);
                         
                 </script>

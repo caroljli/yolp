@@ -6,7 +6,7 @@ from restaurant.models import Restaurant, Follow, Location, Category
 from restaurant_admin.models import RestaurantAdmin
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.contrib.gis.geoip2 import GeoIP2
+from geopy.geocoders import Nominatim
 
 def splash(request):
     if request.user.is_authenticated:
@@ -54,7 +54,7 @@ def new_restaurant(request):
     return render(request, "new_restaurant.html", {})
 
 def new_restaurant_view(request):
-    g = GeoIP2()
+    geolocator = Nominatim(user_agent="yolp")
 
     name = request.POST.get("restaurant_name")
     school = request.POST.get("school")
@@ -67,7 +67,9 @@ def new_restaurant_view(request):
     url = request.POST.get("url")
     website = request.POST.get("website")
 
-    coordinates = list(g.lon_lat(website))
+    temp_loc = geolocator.geocode(address)
+    y_coord = temp_loc.longitude
+    x_coord = temp_loc.latitude
 
     restaurant = Restaurant.objects.create(user=request.user, 
                                            admin=RestaurantAdmin.objects.get(user=request.user), 
@@ -75,8 +77,9 @@ def new_restaurant_view(request):
                                            description=description, address=address, 
                                            picture=picture, location=location, 
                                            url=url, website=website,
-                                           coordinates=coordinates)
-    
+                                           x_coord=x_coord,
+                                           y_coord=y_coord)
+
     category_body = categories.split(",")
 
     for n, category in enumerate(category_body):
