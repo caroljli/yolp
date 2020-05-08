@@ -43,20 +43,17 @@
                 <h2 class="title is-4">Restaurants Howard Manages</h2>
                 <h3 class="subtitle is-5">View his Yolp content.</h3>
 
+                {% for restaurant in restaurants %}
+
                 <div class="notification is-warning">
-                    <strong>Distrito</strong>
-                    <p>University of Pennsylvania // $$</p>
+                    <strong>{{ restaurant.restaurant_name }}</strong>
+                    <p>{{ restaurant.school }} // {{ restaurant.price }}</p>
                     <br>
-                    <button class="button is-small is-light is-warning is-fullwidth">View</button>
+                    <a class="button is-small is-light is-warning is-fullwidth" href="{% url 'restaurant' restaurant.restaurant_name %}">View</a>
                     
                 </div>
 
-                <div class="notification is-warning">
-                    <strong>Pelicana</strong>
-                    <p>University of Pennsylvania // $$</p>
-                    <br>
-                    <button class="button is-small is-light is-warning is-fullwidth">View</button>
-                </div>
+                {% endfor %}
 
             </div>
         </section>

@@ -16,5 +16,6 @@ class RestaurantAdmin(models.Model):
     name = models.CharField(max_length=200)
     time = models.DateTimeField(auto_now=True, null=True)
     bio = models.TextField()
+    picture = models.CharField(max_length=600, null=True)
     is_student = False
     is_restaurant = True

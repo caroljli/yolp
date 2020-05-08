@@ -57,21 +57,25 @@
                 <h2 class="title is-4">Actions</h2>
                 <h3 class="subtitle is-5">Manage your restaurant pages.</h3>
 
+                {% for restaurant in restaurants %}
+
                 <div class="notification is-warning">
+                    <strong>{{ restaurant.restaurant_name }}</strong>
+                    <p>{{ restaurant.school }} // {{ restaurant.price }}</p>
+                    <br>
+                    <a class="button is-small is-light is-warning is-fullwidth" href="{% url 'restaurant' restaurant.restaurant_name %}">View</a>
+                    
+                </div>
+
+                {% endfor %}
+                <!-- <div class="notification is-warning">
                     <p class="title is-5">Distrito</p>
                     <p class="subtitle is-5">23 reviews</p>
                     <a class="button is-small is-light is-warning href="/browse">View</a>
                     <a class="button is-small is-dark href="/browse">Edit</a>
-                 </div>
+                 </div> -->
 
-                 <div class="notification is-warning">
-                    <p class="title is-5">Pelicana</p>
-                    <p class="subtitle is-5">12 reviews</p>
-                    <a class="button is-small is-light is-warning href="/browse">View</a>
-                    <a class="button is-small is-dark href="/browse">Edit</a>
-                 </div>
-
-                 <button class="button is-fullwidth is-light" id="newrest_button"><strong>Add New Restaurant</strong></button>
+                 <a class="button is-fullwidth is-light" href='/new_restaurant/'><strong>Add New Restaurant</strong></a>
 
             </div>
         </section>
@@ -79,82 +83,5 @@
     <div class="column is-one-fifth"></div>
 
 </div>
-
-<!-- new restaurant modal -->
-<div class="modal" id="newrest_modal">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-        <p class="modal-card-title">Add New Restaurant</p>
-        <button class="delete" aria-label="close" id="newrest_close_modal"></button>
-        </header>
-        <section class="modal-card-body">
-        <form method="POST" action="/newpost/">
-            {% csrf_token %}
-            <div class="field">
-                <label class="label">Restaurant Name</label>
-                <div class="control">
-                    <input name="restaurant_name" class="input" placeholder="eg. Distrito">
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">School</label>
-                <div class="control">
-                    <input name="school" class="input" placeholder="eg. University of Pennsylvania">
-                </div>
-            </div>
-                
-            <div class="field">
-                <label class="label">Address</label>
-                <div class="control">
-                    <input name="address" class="input" placeholder="eg. 40th and Chestnut">
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="label">Price Range</label>
-                <div class="control">
-                    <div class="select" name="price">
-                    <select>
-                        <option>$</option>
-                        <option>$$</option>
-                        <option>$$$</option>
-                        <option>$$$$</option>
-                    </select>
-                    </div>
-                </div>
-            </div>
-                
-            <div class="field">
-                <label class="label">Description</label>
-                <div class="control">
-                    <textarea name="description" class="textarea" placeholder="eg. A non-profit!"></textarea>
-                </div>
-            </div>
-
-            <div class="buttons has-addons is-centered">
-                <input type="submit" value="Create Restaurant" class="button is-warning"></input>
-            </div>
-            
-        </form>
-        </section>
-    </div>
-</div>
-
-<script>
-    // new restaurant modal
-    var modal = document.getElementById("newrest_modal")
-    var button = document.getElementById("newrest_button")
-    var close_modal = document.getElementById("newrest_close_modal")
-  
-    button.onclick = function() {
-      modal.style.display="flex";
-    }
-  
-    close_modal.onclick = function() {
-      modal.style.display="none";
-    }
-  </script>
 
 {% endblock %}

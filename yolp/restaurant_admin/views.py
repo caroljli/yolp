@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.models import User
 from restaurant_admin.models import RestaurantAdmin
+from restaurant.models import Restaurant
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
@@ -33,10 +34,11 @@ def restaurant_register_view(request):
     password = request.POST.get("password")
     email = request.POST.get("email")
     bio = request.POST.get("bio")
+    picture = request.POST.get("picture")
     user = User.objects.create(username=username, password=password, email=email)
     user.set_password(password)
     user.save()
-    RestaurantAdmin.objects.create(user=user, name=name, bio=bio)
+    RestaurantAdmin.objects.create(user=user, name=name, bio=bio, picture=picture)
     return redirect('/restaurant_register_complete')
 
 # restaurant pages
@@ -44,7 +46,8 @@ def restaurant_register_view(request):
 def restaurant_home(request):
     user = request.user
     rest_admin = RestaurantAdmin.objects.get(user=request.user)
-    return render(request, "restaurant_home.html", {"user": user, "rest_admin": rest_admin})
+    restaurants = Restaurant.objects.filter(user=user)
+    return render(request, "restaurant_home.html", {"user": user, "rest_admin": rest_admin, "restaurants": restaurants})
 
 def restaurant_register_complete(request):
     return render(request, "restaurant_register_complete.html", {})
@@ -52,4 +55,5 @@ def restaurant_register_complete(request):
 def admin_profile(request):
     user = request.user
     rest_admin = RestaurantAdmin.objects.get(user=user)
-    return render(request, "admin_profile.html", {"user": user, "rest_admin": rest_admin})
+    restaurants = Restaurant.objects.filter(user=user)
+    return render(request, "admin_profile.html", {"user": user, "rest_admin": rest_admin, "restaurants": restaurants})

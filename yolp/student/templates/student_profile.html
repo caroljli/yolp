@@ -25,9 +25,11 @@
             <div class="container">
                 <h2 class="title is-4">About {{ student.name }}</h2>
                 <h3 class="subtitle is-5">{{ student.school }}</h3>
+                {% if student.picture_is_not_null %}
                 <figure class="image">
-                    <img src="https://caroljli.github.io/assets/images/cartoon_carol.png">
+                    <img src="{{ student.picture }}">
                 </figure>
+                {% endif %}
                 <br>
 
                 <div class="notification is-light">
@@ -36,20 +38,21 @@
 
                 <h2 class="title is-5">Restaurants {{ student.name }} Follows</h2>
 
-                <div class="notification is-warning">
-                    <strong>Distrito</strong>
-                    <p>University of Pennsylvania // $$</p>
-                    <br>
-                    <button class="button is-small is-light is-warning is-fullwidth">View</button>
-                    
-                </div>
+                {% for follow in follows %}
 
+                <div class="notification is-warning">
+                    <strong>{{ follow.get_restaurant_name }}</strong>
+                    <p>{{ follow.get_restaurant_school }} // {{ follow.get_restaurant_price }}</p>
+                </div>
+<!-- 
                 <div class="notification is-warning">
                     <strong>Pelicana</strong>
                     <p>University of Pennsylvania // $$</p>
                     <br>
                     <button class="button is-small is-light is-warning is-fullwidth">View</button>
-                </div>
+                </div> -->
+
+                {% endfor %}
 
             </div>
         </section>
@@ -66,24 +69,30 @@
                 {% for review in reviews %}
 
                 <div class="card">
+                    {% if review.picture_is_not_null %}
                     <div class="card-image">
                         <figure class="image is-4by3">
-                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                            <img src="{{ review.picture }}">
                         </figure>
                     </div>
+                    {% endif %}
                     <div class="card-content">
                         <div class="media">
                             <div class="media-left">
                                 <figure class="image is-48x48">
-                                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                                    <img src="{{ review.get_user_picture }}">
                                 </figure>
                             </div>
                             <div class="media-content">
-                                <p class="title is-4">{{ review.student.name }}</p>
-                                <p class="subtitle is-6">@{{ review.user.username }}</p>
+                                <p class="title is-4">{{ review.get_name }}</p>
+                                <p class="subtitle is-6">@{{ review.get_username }}</p>
                             </div>
                         </div>
-                  
+                        
+                        <div class="content">
+                            <h3>{{ review.title }}</h3>
+                        </div>
+
                         <div class="content">
                             {{ review.body }}
                             <br></br>

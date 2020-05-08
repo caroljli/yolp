@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login, logout
 from django.contrib.auth.models import User
 from student.models import Student, Review
+from restaurant.models import Follow
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 
@@ -34,10 +35,11 @@ def student_register_view(request):
     email = request.POST.get("email")
     school = request.POST.get("school")
     bio = request.POST.get("bio")
+    picture = request.POST.get("picture")
     user = User.objects.create(username=username, password=password, email=email)
     user.set_password(password)
     user.save()
-    Student.objects.create(user=user, name=name, school=school, bio=bio)
+    Student.objects.create(user=user, name=name, school=school, bio=bio, picture=picture)
     return redirect('/student_register_complete')
 
 # student pages
@@ -53,7 +55,8 @@ def student_profile(request):
     user = request.user
     student = Student.objects.get(user=user)
     reviews = Review.objects.filter(user=user)
-    return render(request, "student_profile.html", {"user": user, "student": student, "reviews": reviews})
+    followed_restaurants = Follow.objects.filter(user=user)
+    return render(request, "student_profile.html", {"user": user, "student": student, "reviews": reviews, "follows": followed_restaurants})
 
 # posts
 

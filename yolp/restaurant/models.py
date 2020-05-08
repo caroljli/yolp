@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from restaurant_admin.models import RestaurantAdmin
 
 PRICE_CHOICES = (
     ('$','$'),
@@ -17,13 +18,47 @@ class Location(models.Model):
 
 class Restaurant(models.Model):
     # managing user
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    admin = models.ForeignKey(RestaurantAdmin, on_delete=models.CASCADE, null=True)
+
     # restaurant details
     restaurant_name = models.CharField(max_length=200)
-    price = models.CharField(max_length=4, choices=PRICE_CHOICES, default='$')
-    description = models.TextField()
-    address = models.CharField(max_length=200)
-    school = models.CharField(max_length=200)
+    price = models.CharField(max_length=4, choices=PRICE_CHOICES, default='$', null=True)
+    description = models.TextField(null=True)
+    address = models.CharField(max_length=200, null=True)
+    school = models.CharField(max_length=200, null=True)
     categories = models.ManyToManyField(Category, blank=True)
     location = models.ForeignKey(Location, blank=True, null=True, on_delete=models.CASCADE)
     time = models.DateTimeField(auto_now=True, null=True)
+    picture = models.CharField(max_length=600, null=True)
+    followed_by = models.ManyToManyField(User, related_name='followed_by', blank=True)
+
+    def picture_is_not_null(self):
+        if self.picture is not None:
+            return True
+        else:
+            return False
+
+    # @property
+    # def follow_count(self):
+    #     return Follow.objects.filter(restaurant=self).count()
+    
+    # def already_following(self):
+    #     if self.follow_count > 0:
+    #         return True
+    #     else:
+    #         return False
+
+class Follow(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, null=True)
+
+    def get_restaurant_name(self):
+        return self.restaurant.restaurant_name
+    
+    def get_restaurant_price(self):
+        return self.restaurant.price 
+    
+    def get_restaurant_school(self):
+        return self.restaurant.school

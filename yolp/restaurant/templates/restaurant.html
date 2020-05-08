@@ -6,13 +6,36 @@
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Distrito
+            {{ restaurant.restaurant_name }}
         </h1>
         <h2 class="subtitle">
-          University of Pennsylvania // <strong>$$</strong>
+            {{ restaurant.school}} // <strong>{{ restaurant.price }}</strong>
         </h2>
-        <button class="button is-light" style="font-family: Avenir"><strong>Follow</strong></button>
-        <button class="button is-warning is-light" style="font-family: Avenir"><strong>Manage Restaurant</strong></button>
+        {% if request.user not in restaurant.followed_by.all %}
+        <form method="POST" action="/follow/">
+            {% csrf_token %}
+              <div class="buttons">
+                <button class="button is-light" style="font-family: Avenir" type="submit" name='follow' value='{{ restaurant.restaurant_name }}'>
+                    <span class="icon">
+                        <i class="fa fa-plus"></i>
+                    </span>
+                    <strong>Follow</strong>
+                </button>
+              </div>
+        </form>
+        {% else %}
+        <form method="POST" action="/follow/">
+            {% csrf_token %}
+              <div class="buttons">
+                <button class="button is-dark" style="font-family: Avenir" type="submit" name='unfollow' value='{{ restaurant.restaurant_name }}'>
+                    <span class="icon">
+                        <i class="fa fa-minus"></i>
+                    </span>
+                    <strong>Unfollow</strong>
+                </button>
+              </div>
+        </form>
+        {% endif %}
       </div>
     </div>
 </section>
@@ -23,10 +46,12 @@
         <section class="section">
             <div class="container">
                 <h2 class="title is-4">About</h2>
-                <h3 class="subtitle is-5">Learn more about Distrito</h3>
+                <h3 class="subtitle is-5">Learn more about {{ restaurant.restaurant_name }}</h3>
+                {% if restaurant.picture_is_not_null %}
                 <figure class="image">
-                    <img src="https://philadelphia.distritorestaurant.com/m/about/New_Taqueria.jpg">
+                    <img src="{{ restaurant.picture }}">
                 </figure>
+                {% endif %}
                 <br>
 
                 <div class="buttons are-small">
@@ -35,12 +60,12 @@
                 </div>
                     
                 <div class="notification is-light">
-                    Price Range: <strong>$$</strong>
+                    Price Range: <strong>{{ restaurant.price }}</strong>
                     <p></p>
-                    40th and Chestnut, Philadelphia, PA
+                    {{ restaurant.address }}
                 </div>
                 <div class="notification is-warning">
-                    Distrito is a registered non-profit restaurant with a lot of good reviews on their margaritas.
+                    {{ restaurant.description }}
                 </div>
 
             </div>
@@ -50,39 +75,47 @@
         <section class="section">
             <div class="container">
                 <h2 class="title is-4">Reviews</h2>
-                <h3 class="subtitle is-5">Read recent reviews on Distrito.</h3>
+                <h3 class="subtitle is-5">Read recent reviews on {{ restaurant.restaurant_name }}.</h3>
 
-                <button class="button is-fullwidth is-warning" style="font-family: Avenir"><strong>Write Review</strong></button>
-                <br>
+                <!-- <button class="button is-fullwidth is-warning" style="font-family: Avenir"><strong>Write Review</strong></button>
+                <br> -->
+
+                {% for review in reviews %}
 
                 <div class="card">
+                    {% if review.picture_is_not_null %}
                     <div class="card-image">
                         <figure class="image is-4by3">
-                            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                            <img src="{{ review.picture }}">
                         </figure>
                     </div>
+                    {% endif %}
                     <div class="card-content">
                         <div class="media">
                             <div class="media-left">
                                 <figure class="image is-48x48">
-                                    <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                                    <img src="{{ review.get_user_picture }}">
                                 </figure>
                             </div>
                             <div class="media-content">
-                                <p class="title is-4">John Smith</p>
-                                <p class="subtitle is-6">@johnsmith</p>
+                                <p class="title is-4">{{ review.get_name }}</p>
+                                <p class="subtitle is-6">@{{ review.get_username }}</p>
                             </div>
                         </div>
-                  
+                        
                         <div class="content">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                            <a href="#">#css</a> <a href="#">#responsive</a>
-                            <br>
-                            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                            <h3>{{ review.title }}</h3>
+                        </div>
+
+                        <div class="content">
+                            {{ review.body }}
+                            <br></br>
+                            <time datetime="2016-1-1" style="font-size: 12px;">{{ review.time }}</time>
                         </div>
                     </div>
                 </div>
+
+                {% endfor %}
 
             </div>
         </section>
