@@ -44,6 +44,13 @@ class Restaurant(models.Model):
             return True
         else:
             return False
+    
+    def __iter__(self):
+        self._fetch_all()
+        return iter(self._result_cache)
+
+    def __del__(self):
+        self.delete()
 
     # @property
     # def follow_count(self):

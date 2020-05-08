@@ -29,10 +29,11 @@ def logout_view(request):
 
 def restaurant(request, url=None):
     if Restaurant.objects.get(url=url):
+        all_restaurants = Restaurant.objects.all()
         restaurant = Restaurant.objects.get(url=url)
         reviews = Review.objects.filter(restaurant=restaurant.id)
         categories = restaurant.categories.all()
-        return render(request, "restaurant.html", {"restaurant": restaurant, "reviews": reviews, "categories": categories})
+        return render(request, "restaurant.html", {"restaurant": restaurant, "reviews": reviews, "categories": categories, "restaurants": all_restaurants})
     else:
         return render("404: restaurant not found")
 
