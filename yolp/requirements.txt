@@ -83,7 +83,7 @@ ptyprocess==0.6.0
 pycodestyle==2.5.0
 pycosat==0.6.3
 pycparser==2.20
-Pygments==2.6.1
+Pygments==2.7.4
 pymagnitude==0.1.120
 pyOpenSSL==19.1.0
 pyparsing==2.4.7
@@ -213,7 +213,7 @@ ptyprocess==0.6.0
 pycodestyle==2.5.0
 pycosat==0.6.3
 pycparser==2.20
-Pygments==2.6.1
+Pygments==2.7.4
 pymagnitude==0.1.120
 pyOpenSSL==19.1.0
 pyparsing==2.4.7
