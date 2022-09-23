@@ -78,7 +78,7 @@ plumber==1.5
 ply==3.11
 prometheus-client==0.7.1
 prompt-toolkit==3.0.5
-protobuf==3.11.4
+protobuf==3.18.3
 ptyprocess==0.6.0
 pycodestyle==2.5.0
 pycosat==0.6.3
@@ -208,7 +208,7 @@ plumber==1.5
 ply==3.11
 prometheus-client==0.7.1
 prompt-toolkit==3.0.5
-protobuf==3.11.4
+protobuf==3.18.3
 ptyprocess==0.6.0
 pycodestyle==2.5.0
 pycosat==0.6.3
